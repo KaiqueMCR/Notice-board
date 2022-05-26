@@ -14,4 +14,11 @@ router.post('/newPost', (req, res) => {
   res.send('Post created succesfully')
 })
 
+router.delete('/deletePost', (req, res) => {
+  const idToDelete = req.body.id
+
+  posts.deletePost(idToDelete)
+  res.send('Post deleted succesfully')
+})
+
 module.exports = router

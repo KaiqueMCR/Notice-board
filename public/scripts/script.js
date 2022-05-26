@@ -1,5 +1,7 @@
 const URL = 'http://localhost:8080/api/all'
 const postURL = 'http://localhost:8080/api/newPost'
+const deleteURL = 'http://localhost:8080/api/deletePost'
+
 const postsContainer = document.getElementById('postsContainer')
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -30,6 +32,10 @@ function buildPostElements(posts) {
   posts.forEach(post => {
     postElements += `
       <div class="card m-2" style="width: 300px; height: auto" id=${post.id}>
+        <button class="btn text-danger align-self-end position-absolute" onclick="deletePost(this)">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+
         <img class="card-img-top" src="https://picsum.photos/300/100?random=${random}">
 
         <div class="card-body">
@@ -69,9 +75,30 @@ function newPost() {
         document.getElementById('postDescription').value = ''
       })
       .catch(error => {
-        if (err) {
-          console.log(error)
-        }
+        console.log(error)
+      })
+  }
+}
+
+function deletePost(element) {
+  const elementID = element.parentNode.getAttribute('id')
+
+  elementIDtoDelete = { id: elementID }
+
+  const options = {
+    method: 'DELETE',
+    headers: new Headers({ 'Content-type': 'application/json' }),
+    body: JSON.stringify(elementIDtoDelete),
+  }
+
+  if (elementID) {
+    fetch(deleteURL, options)
+      .then(res => {
+        if (!res) return
+        getPosts()
+      })
+      .catch(error => {
+        console.log(error)
       })
   }
 }
