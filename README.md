@@ -19,8 +19,6 @@
 
 🔥 Repo of Notice-board application developed during ProgBr course.
 
-<br>
-
 ## 📸 Screenshot
 
 [<img src="./.github/screenshot.jpg" align="center">](https://notice-board-production.up.railway.app/)
@@ -34,7 +32,7 @@
 - [Nodejs](https://nodejs.org)
 - [Express](https://expressjs.com/)
 - [Nodemon](https://nodemon.io/)
-- [Bootstap](https://getbootstrap.com/)
+- [Bootstrap](https://getbootstrap.com/)
 
 <br>
 
