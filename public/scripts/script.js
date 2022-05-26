@@ -100,3 +100,12 @@ function deletePost(element) {
       })
   }
 }
+
+document.addEventListener('keypress', e => {
+  let postTitle = document.getElementById('postTitle').value
+  let postDescription = document.getElementById('postDescription').value
+
+  if (e.key === 'Enter') {
+    if (postTitle != '' && postDescription != '') newPost()
+  }
+})
