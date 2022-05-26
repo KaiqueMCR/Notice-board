@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![GitHub top language](https://img.shields.io/github/languages/top/KaiqueMCR/Notice-board?color=%23F0DB4F)
+![GitHub top language](https://img.shields.io/github/languages/top/KaiqueMCR/Notice-board?color=%23f06529)
 ![GitHub](https://img.shields.io/github/license/KaiqueMCR/Notice-board)
 ![GitHub repo size](https://img.shields.io/github/repo-size/KaiqueMCR/Notice-board)
 ![GitHub issues](https://img.shields.io/github/issues/KaiqueMCR/Notice-board)
