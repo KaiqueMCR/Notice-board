@@ -52,6 +52,7 @@ function buildPostElements(posts) {
 }
 
 function newPost() {
+  postsContainer.innerHTML = '<span class="spinner-border text-white" >'
   let postTitle = document.getElementById('postTitle').value
   let postDescription = document.getElementById('postDescription').value
 
@@ -66,11 +67,6 @@ function newPost() {
   if (postTitle != '' && postDescription != '') {
     fetch(postURL, options)
       .then(res => {
-        do {
-          postsContainer.innerHTML =
-            '<span class="spinner-border text-white style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">'
-        } while (!res)
-
         getPosts()
         document.getElementById('postTitle').value = ''
         document.getElementById('postDescription').value = ''
@@ -82,6 +78,8 @@ function newPost() {
 }
 
 function deletePost(element) {
+  element.innerHTML =
+    '<span class="spinner-border spinner-border-sm text-white" >'
   const elementID = element.parentNode.getAttribute('id')
 
   elementIDtoDelete = { id: elementID }
@@ -95,7 +93,6 @@ function deletePost(element) {
   if (elementID) {
     fetch(deleteURL, options)
       .then(res => {
-        if (!res) return
         getPosts()
       })
       .catch(error => {
