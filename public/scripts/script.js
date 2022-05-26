@@ -3,8 +3,6 @@ const postURL = 'https://notice-board-production.up.railway.app/newPost'
 const deleteURL =
   'https://notice-board-production.up.railway.app/api/deletePost'
 
-console.log(URL)
-
 const postsContainer = document.getElementById('postsContainer')
 
 document.addEventListener('DOMContentLoaded', () => {
