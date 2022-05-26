@@ -1,6 +1,9 @@
-const URL = 'http://localhost:8080/api/all'
-const postURL = 'http://localhost:8080/api/newPost'
-const deleteURL = 'http://localhost:8080/api/deletePost'
+const URL = `https://notice-board-production.up.railway.app/api/all`
+const postURL = 'https://notice-board-production.up.railway.app/newPost'
+const deleteURL =
+  'https://notice-board-production.up.railway.app/api/deletePost'
+
+console.log(URL)
 
 const postsContainer = document.getElementById('postsContainer')
 
