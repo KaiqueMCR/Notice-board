@@ -1,7 +1,8 @@
-const URL = `http://localhost:8080/api/all`
-const postURL = 'http://localhost:8080/api/newPost'
-const deleteURL = 'http://localhost:8080/api/deletePost'
-const editURL = 'http://localhost:8080/api/editPost'
+const URL = `https://notice-board-production.up.railway.app/api/all`
+const postURL = 'https://notice-board-production.up.railway.app/api/newPost'
+const deleteURL =
+  'https://notice-board-production.up.railway.app/api/deletePost'
+const editURL = 'https://notice-board-production.up.railway.app/api/editPost'
 
 const postsContainer = document.getElementById('postsContainer')
 
@@ -131,7 +132,7 @@ function editPost() {
   }
 
   if (editPostTitle != '' && editPostDescription != '') {
-    fetch(deleteURL, options)
+    fetch(editURL, options)
       .then(() => {
         getPosts()
       })
