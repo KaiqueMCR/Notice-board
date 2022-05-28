@@ -1,4 +1,4 @@
-const URL = `https://notice-board-production.up.railway.app/api/all`
+const URL = 'https://notice-board-production.up.railway.app/api/all'
 const postURL = 'https://notice-board-production.up.railway.app/api/newPost'
 const deleteURL =
   'https://notice-board-production.up.railway.app/api/deletePost'
