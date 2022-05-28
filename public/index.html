@@ -118,6 +118,79 @@
       </div>
 
       <div
+        class="modal fade"
+        id="editPostModal"
+        tabindex="-1"
+        aria-labelledby="editPostLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-dark" id="editPostLabel">
+                Edit post
+              </h5>
+
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <input
+                required
+                type="text"
+                name="title"
+                id="editPostTitle"
+                placeholder="Title"
+                class="d-block w-100 mb-2"
+              />
+
+              <textarea
+                required
+                name="description"
+                id="editPostDescription"
+                cols="30"
+                rows="10"
+                placeholder="Description"
+                class="d-block w-100"
+              ></textarea>
+
+              <input
+                type="text"
+                name="id"
+                id="postId"
+                disabled
+                class="d-block w-100 mb-2 invisible"
+              />
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-dismiss="modal"
+                onclick="editPost()"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
         id="postsContainer"
         class="bg-secondary mt-5 mw-100 rounded p-3 d-flex justify-content-center align-items-center flex-row flex-wrap position-relative overflow-auto"
         style="height: 450px"

@@ -21,4 +21,13 @@ router.delete('/deletePost', (req, res) => {
   res.send('Post deleted succesfully')
 })
 
+router.put('/editPost', (req, res) => {
+  const idToEdit = req.body.id
+  const title = req.body.title
+  const description = req.body.description
+
+  posts.editPost(idToEdit, title, description)
+  res.send('Post edited succesfully')
+})
+
 module.exports = router

@@ -2,6 +2,7 @@ const URL = `https://notice-board-production.up.railway.app/api/all`
 const postURL = 'https://notice-board-production.up.railway.app/api/newPost'
 const deleteURL =
   'https://notice-board-production.up.railway.app/api/deletePost'
+const editURL = 'https://notice-board-production.up.railway.app/api/editPost'
 
 const postsContainer = document.getElementById('postsContainer')
 
@@ -33,11 +34,22 @@ function buildPostElements(posts) {
   posts.forEach(post => {
     postElements += `
       <div class="card m-2" style="width: 300px; height: auto" id=${post.id}>
-        <button class="btn text-danger align-self-end position-absolute" onclick="deletePost(this)">
+        <img class="card-img-top" src="https://picsum.photos/300/100?random=${random}">
+
+        <button class="btn text-white align-self-end position-absolute" onclick="deletePost(this)">
           <i class="fa-solid fa-trash-can"></i>
         </button>
 
-        <img class="card-img-top" src="https://picsum.photos/300/100?random=${random}">
+        <button
+          class="btn text-white align-self-end mr-4 position-absolute"
+          data-toggle="modal"
+          data-target="#editPostModal"
+          type="button"
+          onclick="loadPostInfos(this)"
+        >
+          <i class="fa-solid fa-pen"></i>
+        </button>
+
 
         <div class="card-body">
           <h5 class="card-title text-dark">${post.title}</h5>
@@ -53,6 +65,7 @@ function buildPostElements(posts) {
 
 function newPost() {
   postsContainer.innerHTML = '<span class="spinner-border text-white" >'
+
   let postTitle = document.getElementById('postTitle').value
   let postDescription = document.getElementById('postDescription').value
 
@@ -66,7 +79,7 @@ function newPost() {
 
   if (postTitle != '' && postDescription != '') {
     fetch(postURL, options)
-      .then(res => {
+      .then(() => {
         getPosts()
         document.getElementById('postTitle').value = ''
         document.getElementById('postDescription').value = ''
@@ -92,7 +105,7 @@ function deletePost(element) {
 
   if (elementID) {
     fetch(deleteURL, options)
-      .then(res => {
+      .then(() => {
         getPosts()
       })
       .catch(error => {
@@ -101,11 +114,43 @@ function deletePost(element) {
   }
 }
 
-document.addEventListener('keypress', e => {
-  let postTitle = document.getElementById('postTitle').value
-  let postDescription = document.getElementById('postDescription').value
+function editPost() {
+  let editPostTitle = document.getElementById('editPostTitle').value
+  let editPostDescription = document.getElementById('editPostDescription').value
+  let postId = document.getElementById('postId')
 
-  if (e.key === 'Enter') {
-    if (postTitle != '' && postDescription != '') newPost()
+  const editedPost = {
+    id: postId.value,
+    title: editPostTitle,
+    description: editPostDescription,
   }
-})
+
+  const options = {
+    method: 'PUT',
+    headers: new Headers({ 'Content-type': 'application/json' }),
+    body: JSON.stringify(editedPost),
+  }
+
+  if (editPostTitle != '' && editPostDescription != '') {
+    fetch(editURL, options)
+      .then(() => {
+        getPosts()
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+}
+
+function loadPostInfos(element) {
+  const parentNode = element.parentNode
+
+  let editPostTitle = document.getElementById('editPostTitle')
+  let editPostDescription = document.getElementById('editPostDescription')
+  let postId = document.getElementById('postId')
+
+  postId.value = parentNode.getAttribute('id')
+  postInfos = parentNode.childNodes[7]
+  editPostTitle.value = postInfos.childNodes[1].innerHTML
+  editPostDescription.value = postInfos.childNodes[3].innerHTML
+}

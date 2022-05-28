@@ -12,6 +12,16 @@ module.exports = {
   deletePost(id) {
     this.posts = this.posts.filter(post => post.id != id)
   },
+
+  editPost(id, title, description) {
+    indexToEdit = this.posts.findIndex(post => post.id == id)
+
+    this.posts[indexToEdit] = {
+      id,
+      title,
+      description,
+    }
+  },
 }
 
 function generateID() {
