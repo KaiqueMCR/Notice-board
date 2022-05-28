@@ -1,6 +1,7 @@
 const URL = `http://localhost:8080/api/all`
 const postURL = 'http://localhost:8080/api/newPost'
 const deleteURL = 'http://localhost:8080/api/deletePost'
+const editURL = 'http://localhost:8080/api/editPost'
 
 const postsContainer = document.getElementById('postsContainer')
 
@@ -43,7 +44,7 @@ function buildPostElements(posts) {
           data-toggle="modal"
           data-target="#editPostModal"
           type="button"
-          onclick="loadPostInputs(this.nextSibling)"
+          onclick="loadPostInfos(this)"
         >
           <i class="fa-solid fa-pen"></i>
         </button>
@@ -77,7 +78,7 @@ function newPost() {
 
   if (postTitle != '' && postDescription != '') {
     fetch(postURL, options)
-      .then(res => {
+      .then(() => {
         getPosts()
         document.getElementById('postTitle').value = ''
         document.getElementById('postDescription').value = ''
@@ -103,7 +104,7 @@ function deletePost(element) {
 
   if (elementID) {
     fetch(deleteURL, options)
-      .then(res => {
+      .then(() => {
         getPosts()
       })
       .catch(error => {
@@ -112,14 +113,43 @@ function deletePost(element) {
   }
 }
 
-function loadPostInputs(element) {
+function editPost() {
+  let editPostTitle = document.getElementById('editPostTitle').value
+  let editPostDescription = document.getElementById('editPostDescription').value
+  let postId = document.getElementById('postId')
+
+  const editedPost = {
+    id: postId.value,
+    title: editPostTitle,
+    description: editPostDescription,
+  }
+
+  const options = {
+    method: 'PUT',
+    headers: new Headers({ 'Content-type': 'application/json' }),
+    body: JSON.stringify(editedPost),
+  }
+
+  if (editPostTitle != '' && editPostDescription != '') {
+    fetch(deleteURL, options)
+      .then(() => {
+        getPosts()
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+}
+
+function loadPostInfos(element) {
+  const parentNode = element.parentNode
+
   let editPostTitle = document.getElementById('editPostTitle')
   let editPostDescription = document.getElementById('editPostDescription')
+  let postId = document.getElementById('postId')
 
-  const postInfos = element.nextSibling.childNodes
-
-  console.log(postInfos[1].innerHTML)
-
-  editPostTitle.value = postInfos[1].innerHTML
-  editPostDescription.value = postInfos[3].innerHTML
+  postId.value = parentNode.getAttribute('id')
+  postInfos = parentNode.childNodes[7]
+  editPostTitle.value = postInfos.childNodes[1].innerHTML
+  editPostDescription.value = postInfos.childNodes[3].innerHTML
 }
