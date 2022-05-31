@@ -66,8 +66,8 @@ function buildPostElements(posts) {
 function newPost() {
   postsContainer.innerHTML = '<span class="spinner-border text-white" >'
 
-  let postTitle = document.getElementById('postTitle').value
-  let postDescription = document.getElementById('postDescription').value
+  let postTitle = document.getElementById('postTitle')
+  let postDescription = document.getElementById('postDescription')
 
   const post = { title: postTitle, description: postDescription }
 
@@ -77,7 +77,7 @@ function newPost() {
     body: JSON.stringify(post),
   }
 
-  if (postTitle != '' && postDescription != '') {
+  if (postTitle.value != '' && postDescription.value != '') {
     fetch(postURL, options)
       .then(() => {
         getPosts()
@@ -115,8 +115,8 @@ function deletePost(element) {
 }
 
 function editPost() {
-  let editPostTitle = document.getElementById('editPostTitle').value
-  let editPostDescription = document.getElementById('editPostDescription').value
+  let editPostTitle = document.getElementById('editPostTitle')
+  let editPostDescription = document.getElementById('editPostDescription')
   let postId = document.getElementById('postId')
 
   const editedPost = {
@@ -131,7 +131,7 @@ function editPost() {
     body: JSON.stringify(editedPost),
   }
 
-  if (editPostTitle != '' && editPostDescription != '') {
+  if (editPostTitle.value != '' && editPostDescription.value != '') {
     fetch(editURL, options)
       .then(() => {
         getPosts()
