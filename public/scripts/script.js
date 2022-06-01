@@ -4,13 +4,13 @@ const deleteURL =
   'https://notice-board-production.up.railway.app/api/deletePost'
 const editURL = 'https://notice-board-production.up.railway.app/api/editPost'
 
-const postsContainer = document.getElementById('postsContainer')
-
 document.addEventListener('DOMContentLoaded', () => {
   getPosts()
 })
 
 function getPosts() {
+  const postsContainer = document.getElementById('postsContainer')
+
   fetch(URL)
     .then(res => {
       return res.json()
@@ -69,7 +69,7 @@ function newPost() {
   let postTitle = document.getElementById('postTitle')
   let postDescription = document.getElementById('postDescription')
 
-  const post = { title: postTitle, description: postDescription }
+  const post = { title: postTitle.value, description: postDescription.value }
 
   const options = {
     method: 'POST',
@@ -121,8 +121,8 @@ function editPost() {
 
   const editedPost = {
     id: postId.value,
-    title: editPostTitle,
-    description: editPostDescription,
+    title: editPostTitle.value,
+    description: editPostDescription.value,
   }
 
   const options = {
