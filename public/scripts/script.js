@@ -16,13 +16,12 @@ function getPosts() {
       return res.json()
     })
     .then(response => {
-      if (response) {
-        if (!response.posts[0]) {
-          postsContainer.innerHTML =
-            '<p class="text-white" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">No posts found :(</p>'
-        } else {
-          buildPostElements(response.posts)
-        }
+      if (!response.posts[0]) {
+        postsContainer.innerHTML =
+          '<p class="text-white" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">No posts found :(</p>'
+      } else {
+        console.log(response.posts)
+        buildPostElements(response.posts)
       }
     })
 }
@@ -30,18 +29,20 @@ function getPosts() {
 function buildPostElements(posts) {
   let postElements = ''
   let random = 0
+  console.log(posts)
 
   posts.forEach(post => {
     postElements += `
-      <div class="card m-2" style="width: 300px; height: auto" id=${post.id}>
+      <div class="card m-2" style="width: 300px; height: auto" id=${post._id}>
         <img class="card-img-top" src="https://picsum.photos/300/100?random=${random}">
 
-        <button class="btn text-white align-self-end position-absolute" onclick="deletePost(this)">
+        <button id="delete" class="btn text-white align-self-end position-absolute p-2" onclick="deletePost(this)">
           <i class="fa-solid fa-trash-can"></i>
         </button>
 
         <button
-          class="btn text-white align-self-end mr-4 position-absolute"
+          id="edit"
+          class="btn text-white align-self-end mr-4 position-absolute p-2"
           data-toggle="modal"
           data-target="#editPostModal"
           type="button"
@@ -95,16 +96,13 @@ function deletePost(element) {
     '<span class="spinner-border spinner-border-sm text-white" >'
   const elementID = element.parentNode.getAttribute('id')
 
-  elementIDtoDelete = { id: elementID }
-
   const options = {
     method: 'DELETE',
     headers: new Headers({ 'Content-type': 'application/json' }),
-    body: JSON.stringify(elementIDtoDelete),
   }
 
   if (elementID) {
-    fetch(deleteURL, options)
+    fetch(`${deleteURL}/${elementID}`, options)
       .then(() => {
         getPosts()
       })

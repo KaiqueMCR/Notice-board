@@ -1,33 +1,61 @@
+require('dotenv').config()
+
 const express = require('express')
 const router = express.Router()
-const posts = require('../model/posts')
+const { db, Post } = require('../schemas/mongooseSchema')
 
-router.get('/all', (req, res) => {
-  res.json(posts)
+db.on('error', () => {
+  console.log('Something wet wrong...')
 })
 
-router.post('/newPost', (req, res) => {
-  const title = req.body.title
-  const description = req.body.description
+db.once('open', () => {
+  router.get('/all', async (req, res) => {
+    try {
+      const docs = await Post.find()
+      res.json({ posts: docs })
+    } catch (error) {
+      console.error(error)
+    }
+  })
 
-  posts.newPost(title, description)
-  res.send('Post created succesfully')
-})
+  router.post('/newPost', async (req, res) => {
+    try {
+      const { title, description } = req.body
+      const post = new Post({
+        title: title,
+        description: description,
+      })
+      post
+        .save()
+        .then(doc => res.json(doc))
+        .catch(error => {
+          console.error(error)
+        })
+    } catch (error) {
+      console.error(error)
+    }
+  })
 
-router.delete('/deletePost', (req, res) => {
-  const idToDelete = req.body.id
+  router.delete('/deletePost/:id', async (req, res) => {
+    try {
+      await Post.deleteOne({ _id: req.params.id })
+      res.send('Post deleted succesfully')
+    } catch (error) {
+      console.error(error)
+    }
+  })
 
-  posts.deletePost(idToDelete)
-  res.send('Post deleted succesfully')
-})
-
-router.put('/editPost', (req, res) => {
-  const idToEdit = req.body.id
-  const title = req.body.title
-  const description = req.body.description
-
-  posts.editPost(idToEdit, title, description)
-  res.send('Post edited succesfully')
+  router.put('/editPost', async (req, res) => {
+    const { title, description, id } = req.body
+    await Post.findByIdAndUpdate(
+      { _id: id },
+      {
+        title: title,
+        description: description,
+      }
+    )
+    res.send('Post updated succesfully')
+  })
 })
 
 module.exports = router

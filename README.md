@@ -33,6 +33,8 @@
 - [Express](https://expressjs.com/)
 - [Nodemon](https://nodemon.io/)
 - [Bootstrap](https://getbootstrap.com/)
+- [Mongodb](https://www.mongodb.com/)
+- [Mongoose](https://mongoosejs.com/)
 
 <br>
 
