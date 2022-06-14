@@ -21,7 +21,7 @@
 
 ## 📸 Screenshot
 
-[<img src="./.github/screenshot.jpg" align="center">](https://notice-board-production.up.railway.app/)
+[<img src="./.github/screenshot.png" align="center">](https://notice-board-production.up.railway.app/)
 
 <p align="center">Click on the image above to see in production 👆</p>
 
